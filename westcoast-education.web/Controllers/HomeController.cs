@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 
 namespace westcoast_education.web.Controllers;
@@ -12,6 +11,6 @@ public class HomeController : Controller
     {   
         ViewBag.Message = "Våra kurser!";
         // Returnerar ett ViewResult..
-        return View("Start");
+        return View("index");
     }
 }
