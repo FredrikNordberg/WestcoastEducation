@@ -1,0 +1,20 @@
+@{
+    ViewBag.PageTitle = "Våra Kurser";
+}
+
+
+
+<div class="landing">
+    <div class="content">
+        <h1>Kurser vi erbjuder!</h1>
+        <section>
+            @* Razor kod som dynamiskt listar mina kurser som finns i Courses egenskapen i ViewBag *@
+            @foreach (var course in ViewBag.Courses)
+            {
+                <div>
+                    <h2 class="course-box">@course</h2>
+                </div>
+            }
+        </section>
+    </div>
+</div>

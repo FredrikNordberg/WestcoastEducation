@@ -3,9 +3,25 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Westcoast Education</title>
+    <script src="https://kit.fontawesome.com/9e7bc46c24.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="~/css/styles.css">
+    <link rel="stylesheet" href="~/css/navigation.css">
+    <link rel="stylesheet" href="~/css/colors.css">
+    <link rel="stylesheet" href="~/css/utilities.css">
+    <link rel="stylesheet" href="~/css/landing-page.css">
+    @RenderSection("styles", false)
+    <title>@ViewBag.PageTitle - Westcoast Education</title>
 </head>
 <body>
+    <header>
+        <nav class="navbar">
+            <h1 class="logo"><span class="text-primary"><i class="fa-solid fa-school"></i>Westcoast </span>Education</h1>
+            <ul>
+                <a asp-action="index" asp-controller="Home">Start</a>
+                <a asp-action="index" asp-controller="Courses">Kurser</a>
+            </ul>
+        </nav>
+    </header>
     <main>
         @RenderBody()
     </main>
