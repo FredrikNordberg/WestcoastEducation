@@ -1,6 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using westcoast_education.web.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+// Add database support...
+builder.Services.AddDbContext<WestcoastEducationContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("Sqlite"))
+);
+
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
