@@ -16,7 +16,7 @@ namespace westcoast_education.web.Data
             if (context.Courses.Any()) return;
 
             // Läsa in jason datat...
-             var json = System.IO.File.ReadAllText("Data/json/courses.json");
+            var json = System.IO.File.ReadAllText("Data/json/courses.json");
             // Konvertera json objekten till en lista av Course objekt...
             var courses = JsonSerializer.Deserialize<List<Course>>(json, options);
 
