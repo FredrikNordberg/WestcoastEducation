@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using westcoast_education.web.Data;
 
 namespace westcoast_education.web.Controllers
@@ -9,12 +10,14 @@ namespace westcoast_education.web.Controllers
         private readonly WestcoastEducationContext _context;
         public CoursesAdminController(WestcoastEducationContext context)
         {
+            
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View("Index");
+            var courses = await _context.Courses.ToListAsync();
+            return View("Index", courses);
         }
 
         
