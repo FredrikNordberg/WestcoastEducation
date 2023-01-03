@@ -125,8 +125,8 @@ namespace westcoast_education.web.Controllers
 
                 courseToUpdate.CourseId = course.CourseId;
                 courseToUpdate.CourseName = course.CourseName;
-                courseToUpdate.CourseLocation = course.CourseLocation;
-                courseToUpdate.CourseLanguage = course.CourseLanguage;
+                courseToUpdate.CourseTitle = course.CourseTitle;
+                courseToUpdate.CourseStartDate = course.CourseStartDate;
 
                 _context.Courses.Update(courseToUpdate);
                 await _context.SaveChangesAsync();

@@ -14,10 +14,11 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th>Kurs ID</th>
-                    <th>Ämne</th>
-                    <th>Plats</th>
-                    <th>Språk</th>
+                    <th>Kursnummer</th>
+                    <th>Kursnamn</th>
+                    <th>Kurstitel</th>
+                    <th>Startdatum</th>
+                    <th>Slutdatum</th>
                     <th></th>
                 </tr>
             </thead>
@@ -31,8 +32,9 @@
                         </td>
                         <td>@course.CourseId</td>
                         <td>@course.CourseName</td>
-                        <td>@course.CourseLocation</td>
-                        <td>@course.CourseLanguage</td>
+                        <td>@course.CourseTitle</td>
+                        <td>@course.CourseStartDate</td>
+                        <td>@course.CourseEndDate</td>
                         <td><a class="delete-icon" asp-action="Delete" asp-controller="CoursesAdmin"
                             asp-route-courseId=@course.CourseId><i class="fa-solid fa-trash-can"></i></a></td>
                     </tr>

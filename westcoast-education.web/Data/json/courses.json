@@ -2,19 +2,22 @@
     {
         "courseId": 1001,
         "courseName": "Systemutveckling",
-        "courseLocation": "Classroom",
-        "courseLanguage": "Swedish"
+        "courseTitle": "",
+        "courseStartDate": "2023-08-29",
+        "courseEndDate": "2025-08-29" 
     },
     {
         "courseId": 1002,
         "courseName": "Webbutveckling",
-        "courseLocation": "Distance",
-        "courseLanguage": "Swedish"
+        "courseTitle": "",
+        "courseStartDate": "2023-08-29",
+        "courseEndDate": "2025-08-29" 
     },
     {
         "courseId": 1003,
         "courseName": "Applikationsutveckling",
-        "courseLocation": "Classroom",
-        "courseLanguage": "Swedish"
+        "courseTitle": "",
+        "courseStartDate": "2023-08-29",
+        "courseEndDate": "2025-08-29" 
     }
 ]
