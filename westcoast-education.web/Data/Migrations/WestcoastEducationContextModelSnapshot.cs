@@ -23,6 +23,7 @@ namespace westcoasteducation.web.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("CourseEndDate")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CourseName")
@@ -30,14 +31,47 @@ namespace westcoasteducation.web.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CourseStartDate")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CourseTitle")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("CourseId");
 
                     b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("westcoast_education.web.Models.Person", b =>
+                {
+                    b.Property<int>("PersonId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PersonEmail")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PersonLastName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PersonName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PersonPhone")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PersonTitle")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("PersonId");
+
+                    b.ToTable("Persons");
                 });
 #pragma warning restore 612, 618
         }

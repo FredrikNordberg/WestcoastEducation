@@ -1,7 +1,9 @@
 @{
     ViewBag.PageTitle = "Våra Kurser";
 }
-
+@section styles {
+    <link rel="stylesheet" href="~/css/course-page.css"/>
+}
 
 
 <div class="landing">
@@ -10,7 +12,7 @@
         <section>
         @foreach (var course in Model)
         {
-            <div class="course-box">
+            <div class="border-box">
                 <a asp-action="details" asp-route-courseId=@course.CourseId>@course.CourseName</a>
             </div>
         }

@@ -1,0 +1,29 @@
+[
+    {
+        "personId": 100,
+        "personTitle": "Lärare",
+        "personName": "Stefan",
+        "personLastName": "Svensson",
+        "personEmail": "Stefan99@hotmail.com",
+        "personPhone": 23322131,
+        "comment": ""
+    },
+    {
+        "personId": 200,
+        "personTitle": "Student",
+        "personName": "Erik",
+        "personLastName": "Eriksson",
+        "personEmail": "Erik99@hotmail.com",
+        "personPhone": 23322131,
+        "comment": "" 
+    },
+    {
+        "personId": 300,
+        "personTitle": "Student",
+        "personName": "Lasse",
+        "personLastName": "Andersson",
+        "personEmail": "Lasse99@hotmail.com",
+        "personPhone": 23322131,
+        "comment": "" 
+    }
+]

@@ -7,6 +7,7 @@ namespace westcoast_education.web.Data
     {
         
         public DbSet<Course> Courses => Set<Course>();
+        public DbSet<Person> Persons => Set<Person>();
         public WestcoastEducationContext(DbContextOptions options) : base(options)
         {
         }

@@ -1,0 +1,25 @@
+@{
+    ViewBag.PageTitle = "Våra Användare";
+}
+@section styles {
+    <link rel="stylesheet" href="~/css/user-page.css"/>
+}
+
+
+
+<div class="landing">
+    <div class="content">
+        <h1>Användare</h1>
+        <section>
+        @foreach (var person in Model)
+        {
+            <div class="border-box">
+                <a asp-action="details" asp-route-personId=@person.PersonId>
+                Namn: @person.PersonName<br> 
+                Efternamn: @person.PersonLastName<br> 
+                Titel: @person.PersonTitle</a>
+            </div>
+        }
+    </section>
+    </div>
+</div>

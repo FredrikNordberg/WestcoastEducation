@@ -1,0 +1,50 @@
+@model westcoast_education.web.Models.Person
+
+@{
+    Layout = "_LayoutAdmin";
+}
+
+<section class="page">
+    <h1 class="page-title">Lägg till person</h1>
+    <form class="shadow" asp-action="create" asp-controller="PersonsAdmin" method="post">
+        <div class="form-control">
+            <label asp-for="PersonId"></label>
+            <input asp-for="PersonId" />
+            <span class="error" asp-validation-for="PersonId"></span>
+        </div>
+        <div class="form-control">
+            <label asp-for="PersonTitle"></label>
+            <input asp-for="PersonTitle" />
+            <span class="error" asp-validation-for="PersonTitle"></span>
+        </div>
+        <div class="form-control">
+            <label asp-for="PersonName"></label>
+            <input asp-for="PersonName" />
+            <span class="error" asp-validation-for="PersonName"></span>
+        </div>
+        <div class="form-control">
+            <label asp-for="PersonLastName"></label>
+            <input asp-for="PersonLastName" />
+            <span class="error" asp-validation-for="PersonLastName"></span>
+        </div>
+        <div class="form-control">
+            <label asp-for="PersonEmail"></label>
+            <input asp-for="PersonEmail" />
+            <span class="error" asp-validation-for="PersonEmail"></span>
+        </div>
+        <div class="form-control">
+            <label asp-for="PersonPhone"></label>
+            <input asp-for="PersonPhone" />
+            <span class="error" asp-validation-for="PersonPhone"></span>
+        </div>
+
+        <div class="form-control">
+            <div class="buttons-container">
+                <button type="Submit" class="btn btn-primary"><i class="fa-sharp fa-solid fa-floppy-disk"></i>
+                    Spara</button>
+                <a asp-action="index" asp-controller="PersonsAdmin" class="btn btn-warning"><i
+                        class="fa-solid fa-arrow-left"></i>Avbryt</a>
+            </div>
+        </div>
+    </form>
+</section>

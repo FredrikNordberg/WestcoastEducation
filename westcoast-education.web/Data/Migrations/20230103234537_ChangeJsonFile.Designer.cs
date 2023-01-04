@@ -10,8 +10,8 @@ using westcoast_education.web.Data;
 namespace westcoasteducation.web.Data.Migrations
 {
     [DbContext(typeof(WestcoastEducationContext))]
-    [Migration("20221228180332_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230103234537_ChangeJsonFile")]
+    partial class ChangeJsonFile
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace westcoasteducation.web.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("CourseLocation")
+                    b.Property<string>("CourseEndDate")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -33,7 +33,11 @@ namespace westcoasteducation.web.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CouseLanguage")
+                    b.Property<string>("CourseStartDate")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CourseTitle")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -42,56 +46,34 @@ namespace westcoasteducation.web.Data.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("westcoast_education.web.Models.Student", b =>
+            modelBuilder.Entity("westcoast_education.web.Models.Person", b =>
                 {
-                    b.Property<int>("StudentId")
+                    b.Property<int>("PersonId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("StudentEmail")
+                    b.Property<string>("PersonEmail")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("StudentFirstName")
+                    b.Property<string>("PersonLastName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("StudentLastName")
+                    b.Property<string>("PersonName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("StudentPhone")
+                    b.Property<int>("PersonPhone")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("StudentId");
-
-                    b.ToTable("Students");
-                });
-
-            modelBuilder.Entity("westcoast_education.web.Models.Teacher", b =>
-                {
-                    b.Property<int>("TeacherId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("TeacherEmail")
+                    b.Property<string>("PersonTitle")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("TeacherFirstName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.HasKey("PersonId");
 
-                    b.Property<string>("TeacherLastName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("TeacherPhone")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("TeacherId");
-
-                    b.ToTable("Teachers");
+                    b.ToTable("Persons");
                 });
 #pragma warning restore 612, 618
         }
