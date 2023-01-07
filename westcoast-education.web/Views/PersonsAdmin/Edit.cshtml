@@ -1,4 +1,4 @@
-@model westcoast_education.web.Models.Person
+@model westcoast_education.web.ViewModels.Persons.PersonUpdateViewModel
 
 @{
     Layout = "_LayoutAdmin";
@@ -37,6 +37,11 @@
             <label asp-for="PersonPhone"></label>
             <input asp-for="PersonPhone" />
             <span class="error" asp-validation-for="PersonPhone"></span>
+        </div>
+        <div class="form-control">
+            <label asp-for="Password"></label>
+            <input disabled asp-for="Password" />
+            <span class="error" asp-validation-for="Password"></span>
         </div>
 
         <div class="form-control">

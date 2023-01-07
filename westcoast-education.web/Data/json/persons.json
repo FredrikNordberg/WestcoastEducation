@@ -5,7 +5,7 @@
         "personName": "Stefan",
         "personLastName": "Svensson",
         "personEmail": "Stefan99@hotmail.com",
-        "personPhone": 23322131,
+        "personPhone": "23322131",
         "comment": ""
     },
     {
@@ -14,7 +14,7 @@
         "personName": "Erik",
         "personLastName": "Eriksson",
         "personEmail": "Erik99@hotmail.com",
-        "personPhone": 23322131,
+        "personPhone": "23322131",
         "comment": "" 
     },
     {
@@ -23,7 +23,7 @@
         "personName": "Lasse",
         "personLastName": "Andersson",
         "personEmail": "Lasse99@hotmail.com",
-        "personPhone": 23322131,
+        "personPhone": "23322131",
         "comment": "" 
     }
 ]

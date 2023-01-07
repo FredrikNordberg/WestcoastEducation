@@ -14,10 +14,12 @@
         @foreach (var person in Model)
         {
             <div class="border-box">
-                <a asp-action="details" asp-route-personId=@person.PersonId>
+                <a asp-route-personId=@person.PersonId>
                 Namn: @person.PersonName<br> 
                 Efternamn: @person.PersonLastName<br> 
-                Titel: @person.PersonTitle</a>
+                Titel: @person.PersonTitle<br>
+                Email: @person.PersonEmail<br>
+                Mobil: @person.PersonPhone</a>
             </div>
         }
     </section>

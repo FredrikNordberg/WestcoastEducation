@@ -135,8 +135,9 @@ input[type='number'] {
 .cars img:hover {
   opacity: 0.7;
 }
-.border-box{
+.border-box {
     border: solid  #dfa70d;
     padding: 20px;
     margin: 20px;
+    
 }

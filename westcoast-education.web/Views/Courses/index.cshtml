@@ -13,7 +13,10 @@
         @foreach (var course in Model)
         {
             <div class="border-box">
-                <a asp-action="details" asp-route-courseId=@course.CourseId>@course.CourseName</a>
+                <a asp-action="details" asp-route-courseId=@course.CourseId>
+                    <b>@course.CourseName</b><br>
+                    Startdatum: @course.CourseStartDate<br>
+                    Slutdatum: @course.CourseEndDate</a>
             </div>
         }
     </section>

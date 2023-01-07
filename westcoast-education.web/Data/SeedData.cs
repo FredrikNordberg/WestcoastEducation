@@ -20,7 +20,7 @@ namespace westcoast_education.web.Data
             // Läsa in jason datat...
             var json = System.IO.File.ReadAllText("Data/json/courses.json");
             var jsonPersons = System.IO.File.ReadAllText("Data/json/persons.json");
-            // Konvertera json objekten till en lista av Course objekt...
+            // Konvertera json objekten till en lista av Course/Person objekt...
             var courses = JsonSerializer.Deserialize<List<Course>>(json, options);
             var persons = JsonSerializer.Deserialize<List<Person>>(jsonPersons, options);
 
@@ -35,6 +35,10 @@ namespace westcoast_education.web.Data
                 await context.Persons.AddRangeAsync(persons);
                 await context.SaveChangesAsync();
             }
+
+            
         }
+
+        
     }
 }

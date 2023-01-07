@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using westcoast_education.web.Data;
+using westcoast_education.web.Interfaces;
+using westcoast_education.web.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,9 @@ builder.Services.AddDbContext<WestcoastEducationContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("Sqlite"))
 );
 
+// Add dependency injection..
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 
 builder.Services.AddControllersWithViews();
 
@@ -24,12 +29,15 @@ try
     await context.Database.MigrateAsync();
     await SeedData.LoadCourseData(context);
     
+    
 }
 catch (Exception ex)
 {
     Console.WriteLine("{0} - {1}",ex.Message, ex.InnerException!.Message);
     throw;
 }
+
+
 
 
 
