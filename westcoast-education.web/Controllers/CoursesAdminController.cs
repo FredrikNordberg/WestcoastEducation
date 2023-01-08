@@ -13,25 +13,26 @@ namespace westcoast_education.web.Controllers
     public class CoursesAdminController : Controller
     {
         
-        private readonly ICourseRepository _repo;
+        
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CoursesAdminController(ICourseRepository repo)
+        public CoursesAdminController(IUnitOfWork unitOfWork)
         {
-            
-            _repo = repo;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<IActionResult> Index()
         {
             try
             {
-                // var courses = await _context.Courses.ToListAsync();
-                var courses = await _repo.ListAllAsync();
+                
+                var courses = await _unitOfWork.CourseRepository.ListAllAsync();
                 
 
                 var model = courses.Select(v => new CourseListViewModel
                 {
                     CourseId = v.CourseId,
+                    CourseNumber = v.CourseNumber,
                     CourseName = v.CourseName,
                     CourseTitle = v.CourseTitle,
                     CourseStartDate = v.CourseStartDate,
@@ -69,16 +70,13 @@ namespace westcoast_education.web.Controllers
             {
                 if(!ModelState.IsValid) return View("Create", course);
                 
-                // var exists = await _context.Courses.SingleOrDefaultAsync(
-                // c => c.CourseId == course.CourseId);
-
-            var exists = await _repo.FindByIdAsync(course.CourseId);
+            var exists = await _unitOfWork.CourseRepository.FindByCourseNumberAsync(course.CourseNumber);
             if (exists is not null)
             {
                 var error = new ErrorModel
                 {
                     ErrorTitle ="Ett fel har inträffat när kursen skulle sparas!",
-                    ErrorMessage = $"En kurs med kursnummer {course.CourseId} finns redan i systemet"
+                    ErrorMessage = $"En kurs med kursnummer {course.CourseNumber} finns redan i systemet"
                 };
 
                 return View("_Error", error);
@@ -86,19 +84,18 @@ namespace westcoast_education.web.Controllers
 
             var courseToAdd = new Course
             {
-                CourseId = course.CourseId,
+                CourseNumber = course.CourseNumber,
                 CourseName = course.CourseName,
                 CourseTitle = course.CourseTitle,
                 CourseStartDate = course.CourseStartDate,
                 CourseEndDate = course.CourseEndDate
             };
 
-            // await _context.Courses.AddAsync(courseToAdd);
-            // await _context.SaveChangesAsync();
+            
 
-            if(await _repo.AddAsync(courseToAdd))
+            if(await _unitOfWork.CourseRepository.AddAsync(courseToAdd))
             {
-                if(await _repo.SaveAsync())
+                if(await _unitOfWork.Complete())
                 {
                     return RedirectToAction(nameof(Index));
                 }
@@ -107,7 +104,7 @@ namespace westcoast_education.web.Controllers
             var saveError = new ErrorModel
                 {
                     ErrorTitle ="Ett fel har inträffat när kursen skulle sparas!",
-                    ErrorMessage = $"Det inträffade ett fel när kursen med kursnummer {course.CourseId} skulle sparas"
+                    ErrorMessage = $"Det inträffade ett fel när kursen med kursnummer {course.CourseNumber} skulle sparas"
                 };
 
                 return View("_Error", saveError);
@@ -136,9 +133,9 @@ namespace westcoast_education.web.Controllers
         {
             try
             {
-                // var result = await  _context.Courses.SingleOrDefaultAsync(c => c.CourseId == courseId);
-                var result = await _repo.FindByIdAsync(courseId);
-                // if (course is not null) return View("Edit", course);
+                
+                var result = await _unitOfWork.CourseRepository.FindByIdAsync(courseId);
+                
                 if (result is null){
                     var error = new ErrorModel
                     {
@@ -150,8 +147,10 @@ namespace westcoast_education.web.Controllers
                
                 } 
 
-                var model = new CourseUpdateViewModel{
+                var model = new CourseUpdateViewModel
+                {
                     CourseId = result.CourseId,
+                    CourseNumber = result.CourseNumber,
                     CourseName = result.CourseName,
                     CourseTitle = result.CourseTitle,
                     CourseStartDate = result.CourseStartDate,
@@ -184,26 +183,24 @@ namespace westcoast_education.web.Controllers
                 if(!ModelState.IsValid) return View("Edit", course);
 
                 // var courseToUpdate = _context.Courses.SingleOrDefault(c => c.CourseId == courseId);
-                var courseToUpdate = await _repo.FindByIdAsync(courseId);
+                var courseToUpdate = await _unitOfWork.CourseRepository.FindByIdAsync(courseId);
                 if(courseToUpdate is null) return RedirectToAction(nameof(Index));
 
-                courseToUpdate.CourseId = course.CourseId;
+                courseToUpdate.CourseNumber = course.CourseNumber;
                 courseToUpdate.CourseName = course.CourseName;
                 courseToUpdate.CourseTitle = course.CourseTitle;
                 courseToUpdate.CourseStartDate = course.CourseStartDate;
 
-                if(await _repo.UpdateAsync(courseToUpdate)){
-                    if(await _repo.SaveAsync()){
+                if(await _unitOfWork.CourseRepository.UpdateAsync(courseToUpdate)){
+                    if(await _unitOfWork.Complete()){
                         return RedirectToAction(nameof(Index));
                     }
                 }
-                // _context.Courses.Update(courseToUpdate);
-                // await _context.SaveChangesAsync();
-            
+                
                  var error = new ErrorModel
                 {
                     ErrorTitle = "Ett fel har inträffat när vi skulle spara kursen",
-                    ErrorMessage = $"Ett fel inträffade när vi skulle uppdatera bilen med kursnummer{courseToUpdate.CourseId}"
+                    ErrorMessage = $"Ett fel inträffade när vi skulle uppdatera bilen med kursnummer{courseToUpdate.CourseNumber}"
                 };
 
                 return View("_Error", error);
@@ -228,21 +225,21 @@ namespace westcoast_education.web.Controllers
             try
             {
                 
-                var courseToDelete = await _repo.FindByIdAsync(courseId);
+                var courseToDelete = await _unitOfWork.CourseRepository.FindByIdAsync(courseId);
 
                 if(courseToDelete is null) return RedirectToAction(nameof(Index));
 
                 
-                if(await _repo.DeleteAsync(courseToDelete))
+                if(await _unitOfWork.CourseRepository.DeleteAsync(courseToDelete))
                 {
-                    if(await _repo.SaveAsync())
+                    if(await _unitOfWork.Complete())
                     {
                         return RedirectToAction(nameof(Index));
                     }
                 }
                 var error = new ErrorModel{
                     ErrorTitle = "Ett fel har inträffat när kursen skulle raderas",
-                    ErrorMessage = $"Ett fel inträffade när kursen med kursnummer {courseToDelete.CourseId} skulle raderas"
+                    ErrorMessage = $"Ett fel inträffade när kursen med kursnummer {courseToDelete.CourseNumber} skulle raderas"
                 };
 
                 return View("_Error", error);

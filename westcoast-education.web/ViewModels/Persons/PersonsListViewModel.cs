@@ -4,6 +4,7 @@ namespace westcoast_education.web.ViewModels.Persons
     {
         
         public int PersonId {get; set;} 
+        public string PersonUserName {get; set;} = "";
         public string PersonTitle {get; set;} = "";
         public string PersonName { get; set;} = "";
         public string PersonLastName { get; set; } = "";

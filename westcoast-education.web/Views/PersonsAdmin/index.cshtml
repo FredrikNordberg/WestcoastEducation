@@ -14,7 +14,7 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th>Person ID</th>
+                    <th>Användarnamn</th>
                     <th>Titel</th>
                     <th>Förnamn</th>
                     <th>Efternamn</th>
@@ -31,7 +31,7 @@
                             <a asp-action="Edit" asp-controller="PersonsAdmin" asp-route-personId=@person.PersonId><i
                                 class="fa-solid fa-pen"></i></a>
                         </td>
-                        <td>@person.PersonId</td>
+                        <td>@person.PersonUserName</td>
                         <td>@person.PersonTitle</td>
                         <td>@person.PersonName</td>
                         <td>@person.PersonLastName</td>

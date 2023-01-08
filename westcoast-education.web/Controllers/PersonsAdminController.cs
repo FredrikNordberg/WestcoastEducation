@@ -9,22 +9,20 @@ namespace westcoast_education.web.Controllers
     [Route("personsadmin")]
     public class PersonsAdminController : Controller
     {
-
-
-        private readonly IPersonRepository _repo;
-
-        public PersonsAdminController(IPersonRepository repo)
+        private readonly IUnitOfWork _unitOfWork;
+        public PersonsAdminController(IUnitOfWork unitOfWork)
         {
-            _repo = repo;
-
+            _unitOfWork = unitOfWork;
+            
         }
 
         public async Task<IActionResult> Index()
         {
-            var result = await _repo.ListAllAsync();
+            var result = await _unitOfWork.PersonRepository.ListAllAsync();
             var persons = result.Select(p => new PersonsListViewModel
             {
                 PersonId = p.PersonId,
+                PersonUserName = p.PersonUserName,
                 PersonTitle = p.PersonTitle,
                 PersonName = p.PersonName,
                 PersonLastName = p.PersonLastName,
@@ -49,13 +47,13 @@ namespace westcoast_education.web.Controllers
         public async Task<IActionResult> Create(PersonPostViewModel person)
         {
             if (!ModelState.IsValid) return View("Create", person);
-
-            if (await _repo.FindByIdAsync(person.PersonId) is not null)
+            
+            if (await _unitOfWork.PersonRepository.FindByPersonEmailAsync(person.PersonEmail) is not null)
             {
                 var error = new ErrorModel
                 {
                     ErrorTitle = "Ett fel har inträffat när användaren skulle sparas!",
-                    ErrorMessage = $"En person med person id {person.PersonId} finns redan i systemet"
+                    ErrorMessage = $"En person med Email {person.PersonEmail} finns redan i systemet"
                 };
                 return View("_Error", error);
             }
@@ -64,7 +62,7 @@ namespace westcoast_education.web.Controllers
 
             var personToAdd = new Person
             {
-                PersonId = person.PersonId,
+                PersonUserName = person.PersonUserName,
                 PersonTitle = person.PersonTitle,
                 PersonName = person.PersonName,
                 PersonLastName = person.PersonLastName,
@@ -73,9 +71,9 @@ namespace westcoast_education.web.Controllers
                 Password = person.Password
             };
 
-            if (await _repo.AddAsync(personToAdd))
+            if (await _unitOfWork.PersonRepository.AddAsync(personToAdd))
             {
-                if (await _repo.SaveAsync())
+                if (await _unitOfWork.Complete())
                 {
                     return RedirectToAction(nameof(Index));
                 }
@@ -90,7 +88,7 @@ namespace westcoast_education.web.Controllers
         [HttpGet("edit/{personId}")]
         public async Task<IActionResult> Edit(int personId)
         {
-            var result = await _repo.FindByIdAsync(personId);
+            var result = await _unitOfWork.PersonRepository.FindByIdAsync(personId);
 
         if (result is null)
             {
@@ -100,6 +98,7 @@ namespace westcoast_education.web.Controllers
             var personToUpdate = new PersonUpdateViewModel
             {
                 PersonId = result.PersonId,
+                PersonUserName = result.PersonUserName,
                 PersonTitle = result.PersonTitle,
                 PersonName = result.PersonName,
                 PersonLastName = result.PersonLastName,
@@ -117,7 +116,7 @@ namespace westcoast_education.web.Controllers
             {
                 if (!ModelState.IsValid) return View("Edit", person);
 
-                var personToUpdate = await _repo.FindByIdAsync(personId);
+                var personToUpdate = await _unitOfWork.PersonRepository.FindByIdAsync(personId);
 
                 if (personToUpdate is null)
                 {
@@ -130,16 +129,16 @@ namespace westcoast_education.web.Controllers
                     return View("_Error", notFoundError);
                 }
 
-                personToUpdate.PersonId  = person.PersonId;
+                personToUpdate.PersonUserName  = person.PersonUserName;
                 personToUpdate.PersonTitle  = person.PersonTitle;
                 personToUpdate.PersonName  = person.PersonName;
                 personToUpdate.PersonLastName  = person.PersonLastName;
                 personToUpdate.PersonEmail  = person.PersonEmail;
                 personToUpdate.PersonPhone  = person.PersonPhone;
 
-                if (await _repo.UpdateAsync(personToUpdate))
+                if (await _unitOfWork.PersonRepository.UpdateAsync(personToUpdate))
                 {
-                    if (await _repo.SaveAsync())
+                    if (await _unitOfWork.Complete())
                     {
                         return RedirectToAction(nameof(Index));
                     }
@@ -159,13 +158,13 @@ namespace westcoast_education.web.Controllers
         {
             try
             {
-                var personToDelete = await _repo.FindByIdAsync(personId);
+                var personToDelete = await _unitOfWork.PersonRepository.FindByIdAsync(personId);
 
                 if (personToDelete is null) return RedirectToAction(nameof(Index));
 
-                if (await _repo.DeleteAsync(personToDelete))
+                if (await _unitOfWork.PersonRepository.DeleteAsync(personToDelete))
                 {
-                    if(await _repo.SaveAsync())
+                    if(await _unitOfWork.Complete())
                     {
                         return RedirectToAction(nameof(Index));
                     }

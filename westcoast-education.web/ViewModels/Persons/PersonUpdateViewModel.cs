@@ -5,10 +5,12 @@ namespace westcoast_education.web.ViewModels.Persons
 {
     public class PersonUpdateViewModel
     {
-        [Required(ErrorMessage = "Person ID är obligatoriskt")]
-        [Range(1, int.MaxValue, ErrorMessage = "Person ID måste vara större än 0.")]
-        [DisplayName("Person ID")]
+        
         public int PersonId {get; set;} 
+
+        [Required(ErrorMessage = "Användarnamn är obligatoriskt")]
+        [DisplayName("Användarnamn")]
+        public string PersonUserName {get; set;} = "";
 
         [Required(ErrorMessage = "Titel är obligatoriskt")]
         [DisplayName("Titel")]

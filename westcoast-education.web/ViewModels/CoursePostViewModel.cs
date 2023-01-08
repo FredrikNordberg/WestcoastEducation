@@ -7,7 +7,12 @@ namespace westcoast_education.web.ViewModels
     {
         [Required(ErrorMessage = "Kursnamn är obligatoriskt")]
         [DisplayName("Kursnamn")]
+        
         public string CourseName { get; set;} = "";
+        
+       [Required(ErrorMessage = "Kursnummer är obligatoriskt")]
+        [DisplayName("Kursnummer")]
+        public string CourseNumber { get; set; } = "";
         
         [Required(ErrorMessage = "Titel är obligatoriskt")]
         [DisplayName("Titel")]
@@ -21,9 +26,7 @@ namespace westcoast_education.web.ViewModels
         [DisplayName("Slutdatum")]
         public string CourseEndDate { get; set; } = "";
         
-        [Required(ErrorMessage = "kursnummer är obligatoriskt")]
-        [Range(1, int.MaxValue, ErrorMessage = "kursnummer måste vara större än 0.")]
-        [DisplayName("Kursnummer")]
+        
         public int CourseId { get;  set; }
     }
 }
