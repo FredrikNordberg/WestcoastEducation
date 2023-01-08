@@ -10,9 +10,9 @@ namespace westcoast_education.web.Repository
         
         public CourseRepository(WestcoastEducationContext context):base(context) { }
 
-        public async Task<Course?> FindByCourseNumberAsync(string courseNum)
+        public async Task<Course?> FindByCourseNumberAsync(string coursenumber)
     {
-        return await _context.Courses.SingleOrDefaultAsync(c => c.CourseNumber.Trim().ToLower() == courseNum.Trim().ToLower());
+        return await _context.Courses.SingleOrDefaultAsync(c => c.CourseNumber.Trim().ToLower() == coursenumber.Trim().ToLower());
     }
 
     }
