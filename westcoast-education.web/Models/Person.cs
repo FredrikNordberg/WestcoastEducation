@@ -2,6 +2,7 @@ namespace westcoast_education.web.Models
 {
     public class Person
     {
+        
         public int PersonId {get; set;} 
         public string PersonUserName {get; set;} = "";
         public string PersonTitle {get; set;} = "";
